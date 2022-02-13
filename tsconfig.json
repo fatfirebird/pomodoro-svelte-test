@@ -5,7 +5,12 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "importsNotUsedAsValues": "remove",
-    "strict": true
+    "strict": true,
+    "plugins": [
+      {
+        "name": "typescript-svelte-plugin"
+      }
+    ]
   },
   "include": ["src/**/*", "src/node_modules/**/*"],
   "exclude": ["node_modules/*", "__sapper__/*", "public/*"]
