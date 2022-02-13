@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
 
-type TPomodoroStore = {
+export type TPomodoroStore = {
   pomodoros: number;
   workTime: number;
   pauseTime: number;
@@ -73,6 +73,7 @@ function createPomodoro() {
       }),
 
     reset: () => set(defaultValues),
+    set,
   };
 }
 

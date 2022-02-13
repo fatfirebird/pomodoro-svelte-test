@@ -15,7 +15,6 @@
     "@rollup/plugin-node-resolve": "^11.0.0",
     "@rollup/plugin-typescript": "^8.0.0",
     "@tsconfig/svelte": "^2.0.0",
-    "@types/webextension-polyfill": "^0.8.2",
     "@typescript-eslint/eslint-plugin": "^5.11.0",
     "@typescript-eslint/parser": "^5.11.0",
     "eslint": "^8.9.0",
@@ -38,6 +37,6 @@
   },
   "dependencies": {
     "sirv-cli": "^2.0.0",
-    "webextension-polyfill": "^0.8.0"
+    "webextension-polyfill-ts": "^0.26.0"
   }
 }

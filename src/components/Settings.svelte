@@ -1,9 +1,20 @@
 <script lang="ts">
   import { pomodoroStore } from '../store';
+  import { browser } from 'webextension-polyfill-ts';
+  import { BACKGROUND_ACTION } from '../types';
 
-  function handleReset(e: SubmitEvent) {
+  function handleReset(e: MouseEvent) {
     e.preventDefault();
     pomodoroStore.reset();
+  }
+
+  function handleSubmit(e: SubmitEvent) {
+    e.preventDefault();
+
+    browser.runtime.sendMessage({
+      action: BACKGROUND_ACTION.SET_SETTINGS,
+      data: $pomodoroStore,
+    });
   }
 
   function handleSettingChange(e: Event, cb: (v: number) => void) {
@@ -16,7 +27,7 @@
   }
 </script>
 
-<form on:submit={handleReset}>
+<form on:submit={handleSubmit}>
   <label>
     <span>Помидоры</span>
     <input
@@ -50,5 +61,6 @@
         handleSettingChange(e, pomodoroStore.changeLongPauseTime)}
     />
   </label>
-  <button type="submit">Сбросить</button>
+  <button type="submit">Сохранить</button>
+  <button type="button" on:click={handleReset}>Сбросить</button>
 </form>
