@@ -8,7 +8,7 @@ export type TTimerStoreValues = {
   chills: number;
 };
 
-const defaultValues: Omit<TTimerStoreValues, 'timer'> = {
+export const defaultValues: Omit<TTimerStoreValues, 'timer'> = {
   isPaused: true,
   status: 'work',
   chills: 0,
@@ -21,7 +21,7 @@ function createTimerStore() {
     return { timerWithSettings, ...data };
   };
 
-  const { update, subscribe } = writable<TTimerStoreValues>({
+  const { update, subscribe, set } = writable<TTimerStoreValues>({
     ...defaultValues,
     timer: getSettingsData().timerWithSettings,
   });
@@ -66,6 +66,7 @@ function createTimerStore() {
 
   return {
     setTimer,
+    set,
     startTimer,
     pauseTimer,
     resetTimer,

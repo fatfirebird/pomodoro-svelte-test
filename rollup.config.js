@@ -89,7 +89,7 @@ export default [
     },
   },
   {
-    input: 'src/background/background.ts',
+    input: 'src/bootstrapBackground.ts',
     output: {
       sourcemap: true,
       format: 'iife',

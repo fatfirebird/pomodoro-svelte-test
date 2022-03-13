@@ -7,7 +7,7 @@ export type TSettingsStoreValues = {
   longPauseTime: number;
 };
 
-const defaultValues: TSettingsStoreValues = {
+export const defaultValues: TSettingsStoreValues = {
   pomodoros: 4,
   workTime: 25,
   pauseTime: 5,
@@ -34,6 +34,7 @@ function createSettingsStore() {
 
   return {
     subscribe,
+    set,
     setPomodoros,
     setDefaultSettings,
     setLongPauseTime,
