@@ -1,20 +1,21 @@
 <script lang="ts">
-  import { pomodoroStore } from '../store';
-  import { browser } from 'webextension-polyfill-ts';
+  import { timerStore } from '../domain/timer';
+  import { settingsStore } from '../domain/settings';
+  // import { browser } from 'webextension-polyfill-ts';
   import { BACKGROUND_ACTION } from '../types';
 
   function handleReset(e: MouseEvent) {
     e.preventDefault();
-    pomodoroStore.reset();
+    timerStore.resetTimer();
   }
 
   function handleSubmit(e: SubmitEvent) {
     e.preventDefault();
 
-    browser.runtime.sendMessage({
-      action: BACKGROUND_ACTION.SET_SETTINGS,
-      data: $pomodoroStore,
-    });
+    // browser.runtime.sendMessage({
+    //   action: BACKGROUND_ACTION.SET_SETTINGS,
+    //   data: $pomodoroStore,
+    // });
   }
 
   function handleSettingChange(e: Event, cb: (v: number) => void) {
@@ -22,8 +23,10 @@
     const newValue = Number(target.value);
     cb(newValue > 0 ? newValue : 1);
 
-    pomodoroStore.pause();
-    pomodoroStore.resetTimer();
+    console.log($settingsStore);
+
+    timerStore.pauseTimer();
+    timerStore.resetTimer();
   }
 </script>
 
@@ -32,33 +35,32 @@
     <span>Помидоры</span>
     <input
       type="number"
-      value={$pomodoroStore.pomodoros}
-      on:input={(e) => handleSettingChange(e, pomodoroStore.changePomodoros)}
+      value={$settingsStore.pomodoros}
+      on:input={(e) => handleSettingChange(e, settingsStore.setPomodoros)}
     />
   </label>
   <label>
     <span>Рабочее время</span>
     <input
       type="number"
-      value={$pomodoroStore.workTime}
-      on:input={(e) => handleSettingChange(e, pomodoroStore.changeWorkTime)}
+      value={$settingsStore.workTime}
+      on:input={(e) => handleSettingChange(e, settingsStore.setWorkTime)}
     />
   </label>
   <label>
     <span>Пауза</span>
     <input
       type="number"
-      value={$pomodoroStore.pauseTime}
-      on:input={(e) => handleSettingChange(e, pomodoroStore.changePauseTime)}
+      value={$settingsStore.pauseTime}
+      on:input={(e) => handleSettingChange(e, settingsStore.setPauseTime)}
     />
   </label>
   <label>
     <span>Длинная пауза</span>
     <input
       type="number"
-      value={$pomodoroStore.longPauseTime}
-      on:input={(e) =>
-        handleSettingChange(e, pomodoroStore.changeLongPauseTime)}
+      value={$settingsStore.longPauseTime}
+      on:input={(e) => handleSettingChange(e, settingsStore.setLongPauseTime)}
     />
   </label>
   <button type="submit">Сохранить</button>

@@ -1,24 +1,25 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-
-  import { pomodoroStore } from '../store';
+  import { timerStore } from '../domain/timer';
 
   function togglePause() {
-    if ($pomodoroStore.pause) {
-      pomodoroStore.start();
+    console.log($timerStore);
+
+    if ($timerStore.isPaused) {
+      timerStore.startTimer();
     } else {
-      pomodoroStore.pause();
+      timerStore.pauseTimer();
     }
   }
 
-  $: if ($pomodoroStore.timer <= 0) {
-    pomodoroStore.countTimer();
+  $: if ($timerStore.timer <= 0) {
+    timerStore.countPomodoro();
   }
 
   onMount(() => {
     const interval = setInterval(() => {
-      if (!$pomodoroStore.pause) {
-        pomodoroStore.changeTimer($pomodoroStore.timer - 1);
+      if (!$timerStore.isPaused) {
+        timerStore.setTimer($timerStore.timer - 1);
       }
     }, 1000);
 
@@ -30,12 +31,12 @@
 
 <div
   on:click={togglePause}
-  class:work={$pomodoroStore.status === 'work'}
-  class:chill={$pomodoroStore.status === 'chill'}
-  class:long-chill={$pomodoroStore.status === 'long'}
+  class:work={$timerStore.status === 'work'}
+  class:chill={$timerStore.status === 'chill'}
+  class:long-chill={$timerStore.status === 'long'}
 >
-  {$pomodoroStore.status}
-  {$pomodoroStore.timer}
+  {$timerStore.status}
+  {$timerStore.timer}
 </div>
 
 <style>
