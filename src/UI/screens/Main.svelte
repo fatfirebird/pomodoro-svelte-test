@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { timerStore } from '../domain/timer';
+  import { timerStore } from '../../domain/timer';
 
   function togglePause() {
     console.log($timerStore);

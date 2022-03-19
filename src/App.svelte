@@ -1,8 +1,8 @@
 <script lang="ts">
   import { getInitialData } from './application/getInitialData';
 
-  import Main from './components/Main.svelte';
-  import Settings from './components/Settings.svelte';
+  import Main from './UI/screens/Main.svelte';
+  import Settings from './UI/screens/Settings.svelte';
 
   let showSettings = false;
 
@@ -18,15 +18,15 @@
     <button on:click={toggleSettings}>Настройки</button>
     {#if showSettings}
       <Settings />
+    {:else}
+      <Main />
     {/if}
-    <Main />
   </main>
 {/await}
 
 <style>
   main {
-    width: 200px;
-    max-width: 240px;
+    width: 500px;
     margin: 0 auto;
   }
 </style>
