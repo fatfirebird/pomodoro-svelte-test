@@ -30,7 +30,7 @@ function createTimerStore() {
 
   const startTimer = () => update((store) => ({ ...store, isPaused: false }));
 
-  const pauseTimer = () => update((store) => ({ ...store, pause: true }));
+  const pauseTimer = () => update((store) => ({ ...store, isPaused: true }));
 
   const resetTimer = () =>
     update((store) => ({

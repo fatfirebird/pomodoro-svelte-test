@@ -1,42 +1,20 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import { timerStore } from '../../domain/timer';
+  import { useTimerObserver } from '../../application/useTimerObserver';
+  import { TTimerStoreValues } from '../../domain/timer';
 
-  function togglePause() {
-    console.log($timerStore);
+  let timerData: TTimerStoreValues;
 
-    if ($timerStore.isPaused) {
-      timerStore.startTimer();
-    } else {
-      timerStore.pauseTimer();
-    }
-  }
-
-  $: if ($timerStore.timer <= 0) {
-    timerStore.countPomodoro();
-  }
-
-  onMount(() => {
-    const interval = setInterval(() => {
-      if (!$timerStore.isPaused) {
-        timerStore.setTimer($timerStore.timer - 1);
-      }
-    }, 1000);
-
-    return () => {
-      clearInterval(interval);
-    };
-  });
+  const { togglePause } = useTimerObserver((values) => (timerData = values));
 </script>
 
 <div
   on:click={togglePause}
-  class:work={$timerStore.status === 'work'}
-  class:chill={$timerStore.status === 'chill'}
-  class:long-chill={$timerStore.status === 'long'}
+  class:work={timerData.status === 'work'}
+  class:chill={timerData.status === 'chill'}
+  class:long-chill={timerData.status === 'long'}
 >
-  {$timerStore.status}
-  {$timerStore.timer}
+  {timerData.status}
+  {timerData.timer}
 </div>
 
 <style>
