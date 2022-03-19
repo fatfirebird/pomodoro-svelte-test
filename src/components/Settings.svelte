@@ -1,68 +1,54 @@
 <script lang="ts">
   import { timerStore } from '../domain/timer';
-  import { settingsStore } from '../domain/settings';
-  // import { browser } from 'webextension-polyfill-ts';
-  import { BACKGROUND_ACTION } from '../types';
 
-  function handleReset(e: MouseEvent) {
-    e.preventDefault();
-    timerStore.resetTimer();
-  }
+  import { useSettingsForm } from '../application/useSettingsForm';
 
-  function handleSubmit(e: SubmitEvent) {
-    e.preventDefault();
+  const { form, handleSettingChange, handleSubmit } = useSettingsForm();
 
-    // browser.runtime.sendMessage({
-    //   action: BACKGROUND_ACTION.SET_SETTINGS,
-    //   data: $pomodoroStore,
-    // });
-  }
-
-  function handleSettingChange(e: Event, cb: (v: number) => void) {
-    const target = e.target as HTMLInputElement;
-    const newValue = Number(target.value);
-    cb(newValue > 0 ? newValue : 1);
-
-    console.log($settingsStore);
-
-    timerStore.pauseTimer();
+  function handleReset() {
     timerStore.resetTimer();
   }
 </script>
 
-<form on:submit={handleSubmit}>
+<form on:submit|preventDefault={handleSubmit}>
   <label>
     <span>Помидоры</span>
     <input
-      type="number"
-      value={$settingsStore.pomodoros}
-      on:input={(e) => handleSettingChange(e, settingsStore.setPomodoros)}
+      type="text"
+      name="pomodoros"
+      bind:value={$form.pomodoros}
+      on:change={handleSettingChange}
     />
   </label>
   <label>
     <span>Рабочее время</span>
     <input
-      type="number"
-      value={$settingsStore.workTime}
-      on:input={(e) => handleSettingChange(e, settingsStore.setWorkTime)}
+      type="text"
+      name="workTime"
+      bind:value={$form.workTime}
+      on:change={handleSettingChange}
     />
   </label>
   <label>
     <span>Пауза</span>
     <input
-      type="number"
-      value={$settingsStore.pauseTime}
-      on:input={(e) => handleSettingChange(e, settingsStore.setPauseTime)}
+      type="text"
+      name="pauseTime"
+      bind:value={$form.pauseTime}
+      on:change={handleSettingChange}
     />
   </label>
   <label>
     <span>Длинная пауза</span>
     <input
-      type="number"
-      value={$settingsStore.longPauseTime}
-      on:input={(e) => handleSettingChange(e, settingsStore.setLongPauseTime)}
+      type="text"
+      name="longPauseTime"
+      bind:value={$form.longPauseTime}
+      on:change={handleSettingChange}
     />
   </label>
-  <button type="submit">Сохранить</button>
-  <button type="button" on:click={handleReset}>Сбросить</button>
+  <button type="submit">Запомнить настройки</button>
+  <button type="button" on:click|preventDefault={handleReset}
+    >Сбросить таймер</button
+  >
 </form>

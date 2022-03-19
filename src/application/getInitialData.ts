@@ -15,5 +15,7 @@ export const getInitialData = async () => {
     settingsStore.set(setting);
   }
 
-  console.log(timer, setting);
+  console.log(
+    `getInitialData: ${JSON.stringify(timer)}, ${JSON.stringify(setting)}`,
+  );
 };
