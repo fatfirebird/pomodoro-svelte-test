@@ -73,7 +73,7 @@ export const useTimerObserver = (cb: (v: TTimerStoreValues) => void) => {
     }
 
     if (!timerData?.isPaused) {
-      timerStore.set({ ...timerData, timer: timerData!.timer - 1 });
+      timerStore.set({ ...timerData, timer: timerData.timer - 1 });
     }
   }, 1000);
 
