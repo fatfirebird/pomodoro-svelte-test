@@ -7,7 +7,13 @@
 
 <label>
   <span>{label}</span>
-  <input type="text" name={name} bind:value on:change={handleChange} />
+  <input
+    type="number"
+    name={name}
+    min="1"
+    bind:value
+    on:change={handleChange}
+  />
 </label>
 
 <style>

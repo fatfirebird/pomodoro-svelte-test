@@ -1,10 +1,16 @@
 <script lang="ts">
+  import { onDestroy } from 'svelte';
+
   import { useTimerObserver } from '../../application/useTimerObserver';
   import { TTimerStoreValues } from '../../domain/timer';
 
   let timerData: TTimerStoreValues;
 
-  const { togglePause } = useTimerObserver((values) => (timerData = values));
+  const { togglePause, timerInterval } = useTimerObserver(
+    (values) => (timerData = values),
+  );
+
+  onDestroy(() => clearInterval(timerInterval));
 </script>
 
 <div
@@ -13,8 +19,12 @@
   class:chill={timerData.status === 'chill'}
   class:long-chill={timerData.status === 'long'}
 >
-  {timerData.status}
-  {timerData.timer}
+  {#if timerData.timer === 0}
+    Start timer!
+  {:else}
+    {timerData.status}
+    {timerData.timer}
+  {/if}
 </div>
 
 <style>

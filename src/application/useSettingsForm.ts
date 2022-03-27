@@ -13,9 +13,8 @@ export const useSettingsForm = () => {
   function handleSettingChange(e: Event) {
     const target = e.target as HTMLInputElement;
     const name = target.name;
-    const newValue = target.value.replace(/\D/g, '');
 
-    form.update((values) => ({ ...values, [name]: newValue }));
+    form.update((values) => ({ ...values, [name]: target.value }));
     timerStore.resetTimer();
   }
 

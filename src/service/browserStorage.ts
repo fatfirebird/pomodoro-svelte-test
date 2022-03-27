@@ -1,20 +1,29 @@
 import { browser } from 'webextension-polyfill-ts';
 import { IBrowserStorageService } from '../application/ports';
 
+export const BROWSER_STORAGE_KEYS = {
+  SETTINGS: 'settings',
+  TIMER: 'timer',
+};
+
 export const useBrowserStorage = (): IBrowserStorageService => {
   return {
     setSettingsData: (v) => {
-      browser.storage.sync.set({ settings: v });
+      browser.storage.local.set({ settings: v });
     },
     setTimerData: (v) => {
-      browser.storage.sync.set({ timer: v });
+      browser.storage.local.set({ timer: v });
     },
     getSettingsData: async () => {
-      const { settings = null } = await browser.storage.sync.get('settings');
+      const { settings = null } = await browser.storage.local.get(
+        BROWSER_STORAGE_KEYS.SETTINGS,
+      );
       return settings;
     },
     getTimerData: async () => {
-      const { timer = null } = await browser.storage.sync.get('timer');
+      const { timer = null } = await browser.storage.local.get(
+        BROWSER_STORAGE_KEYS.TIMER,
+      );
       return timer;
     },
   };

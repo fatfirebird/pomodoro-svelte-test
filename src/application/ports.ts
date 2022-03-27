@@ -7,3 +7,15 @@ export interface IBrowserStorageService {
   getTimerData: () => Promise<TTimerStoreValues | null>;
   getSettingsData: () => Promise<TSettingsStoreValues | null>;
 }
+
+export interface IBrowserAlarmsService {
+  createWorkTimer: (time: number) => void;
+  cancelWorkTimer: () => void;
+  createChillTimer: (time: number) => void;
+  cancelChillTimer: () => void;
+}
+
+export interface IBrowserNotificationsService {
+  showWorkNotification: () => void;
+  showChillNotification: () => void;
+}

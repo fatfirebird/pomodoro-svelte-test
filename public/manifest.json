@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Pomodoro svelte",
   "version": "1.0.0",
-  "permissions": ["storage"],
+  "permissions": ["storage", "alarms", "notifications"],
   "background": {
     "scripts": ["build/background.js"],
     "persistent": false
