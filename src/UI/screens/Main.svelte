@@ -14,13 +14,12 @@
 </script>
 
 <div
-  on:click={togglePause}
   class="timer-container"
   class:work={timerData.status === 'work'}
   class:chill={timerData.status === 'chill'}
   class:long-chill={timerData.status === 'long'}
 >
-  <button class="timer-button">
+  <button class="timer-button" on:click={togglePause}>
     {#if timerData?.timer === 0}
       Start timer!
     {:else}
@@ -40,11 +39,11 @@
   }
 
   .work {
-    background-color: var(--red);
+    background-color: var(--red-6);
   }
 
   .chill {
-    background-color: var(--green);
+    background-color: var(--green-7);
   }
 
   .long-chill {

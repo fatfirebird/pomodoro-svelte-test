@@ -1,11 +1,20 @@
 :root {
-  --red: #f42829;
-  --green: #1ee9b6;
+  --red-1: #c32021;
+  --red-3: #f42829;
+  --red-6: #f76969;
+  --green-1: #18ba92;
+  --green-3: #1ee9b6;
+  --green-7: #78f2d3;
   --yellow: #ffde54;
   --white: #fff;
-  --black: #1d1929;
-  --gray-8: #a5a3a9;
-  --gray-11: #e8e8ea;
+  --blue-3: #003cff;
+  --blue-6: #4d77ff;
+  --grey-1: #0f0d15;
+  --grey-2: #1d1929;
+  --grey-8: #a5a3a9;
+  --grey-11: #e8e8ea;
 
   --title: 700 48px/116% sans-serif;
+  --small: 400 14px/116% sans-serif;
+  --button-small: 700 12px/130% sans-serif;
 }

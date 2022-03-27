@@ -1,5 +1,6 @@
 <script lang="ts">
   import { getInitialData } from './application/getInitialData';
+  import Button from './UI/components/button.svelte';
 
   import Main from './UI/screens/Main.svelte';
   import Settings from './UI/screens/Settings.svelte';
@@ -15,13 +16,13 @@
   <p>loading...</p>
 {:then}
   <main>
-    <button on:click={toggleSettings}>
+    <Button handleClick={toggleSettings}>
       {#if showSettings}
         Таймер
       {:else}
         Настройки
       {/if}
-    </button>
+    </Button>
 
     {#if showSettings}
       <Settings />
@@ -33,7 +34,14 @@
 
 <style>
   main {
-    width: 400px;
-    height: 300px;
+    position: relative;
+    width: 500px;
+    height: 320px;
+  }
+
+  main > :global(.button) {
+    top: 8px;
+    left: 8px;
+    position: absolute;
   }
 </style>
