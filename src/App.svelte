@@ -15,7 +15,14 @@
   <p>loading...</p>
 {:then}
   <main>
-    <button on:click={toggleSettings}>Настройки</button>
+    <button on:click={toggleSettings}>
+      {#if showSettings}
+        Таймер
+      {:else}
+        Настройки
+      {/if}
+    </button>
+
     {#if showSettings}
       <Settings />
     {:else}
@@ -26,7 +33,7 @@
 
 <style>
   main {
-    width: 500px;
-    margin: 0 auto;
+    width: 400px;
+    height: 300px;
   }
 </style>
