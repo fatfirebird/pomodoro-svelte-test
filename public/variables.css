@@ -14,7 +14,7 @@
   --grey-8: #a5a3a9;
   --grey-11: #e8e8ea;
 
-  --title: 700 48px/116% sans-serif;
-  --small: 400 14px/116% sans-serif;
-  --button-small: 700 12px/130% sans-serif;
+  --title: 700 48px/116% 'Nunito Sans', sans-serif;
+  --small: 400 14px/116% 'Nunito Sans', sans-serif;
+  --button-small: 700 12px/130% 'Nunito Sans', sans-serif;
 }
