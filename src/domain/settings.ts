@@ -8,10 +8,10 @@ export type TSettingsStoreValues = {
 };
 
 export const defaultValues: TSettingsStoreValues = {
-  pomodoros: 4,
-  workTime: 25,
-  pauseTime: 5,
-  longPauseTime: 25,
+  pomodoros: 1,
+  workTime: 0.1,
+  pauseTime: 0.1,
+  longPauseTime: 0.2,
 };
 
 function createSettingsStore() {

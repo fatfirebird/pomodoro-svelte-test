@@ -9,8 +9,6 @@
   function handleReset() {
     timerStore.resetTimer();
   }
-
-  console.log($form);
 </script>
 
 <form class="settings-form">

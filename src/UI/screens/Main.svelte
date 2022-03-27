@@ -3,6 +3,7 @@
 
   import { useTimerObserver } from '../../application/useTimerObserver';
   import { TTimerStoreValues } from '../../domain/timer';
+  import { formatTimer } from '../../lib/formatTimer';
 
   let timerData: TTimerStoreValues;
 
@@ -23,7 +24,7 @@
     {#if timerData?.timer === 0}
       Start timer!
     {:else}
-      {timerData.timer}
+      {formatTimer(timerData.timer)}
     {/if}
   </button>
 </div>

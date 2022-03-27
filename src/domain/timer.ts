@@ -45,14 +45,12 @@ function createTimerStore() {
         getSettingsData();
 
       const isLong = store.chills === pomodoros;
-      const newChills = isLong ? 0 : store.chills + 1;
 
       if (store.status !== 'work') {
         return {
           ...store,
           status: 'work',
           timer: timerWithSettings,
-          chills: newChills,
         };
       }
 
@@ -60,7 +58,7 @@ function createTimerStore() {
         ...store,
         status: isLong ? 'long' : 'chill',
         timer: (isLong ? longPauseTime : pauseTime) * 60,
-        chills: newChills,
+        chills: isLong ? 0 : store.chills + 1,
       };
     });
 

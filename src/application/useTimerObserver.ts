@@ -68,12 +68,14 @@ export const useTimerObserver = (cb: (v: TTimerStoreValues) => void) => {
   };
 
   const timerInterval = setInterval(async () => {
-    if (timerData?.timer <= 0) {
-      timerStore.pauseTimer();
+    const isBelowZero = timerData?.timer <= 0;
+
+    if (!timerData?.isPaused && !isBelowZero) {
+      timerStore.set({ ...timerData, timer: timerData.timer - 1 });
     }
 
-    if (!timerData?.isPaused) {
-      timerStore.set({ ...timerData, timer: timerData.timer - 1 });
+    if (isBelowZero) {
+      timerStore.pauseTimer();
     }
   }, 1000);
 
