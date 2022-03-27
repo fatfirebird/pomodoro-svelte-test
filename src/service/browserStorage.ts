@@ -4,6 +4,7 @@ import { IBrowserStorageService } from '../application/ports';
 export const BROWSER_STORAGE_KEYS = {
   SETTINGS: 'settings',
   TIMER: 'timer',
+  TIMESTAMP: 'timestamp',
 };
 
 export const useBrowserStorage = (): IBrowserStorageService => {
@@ -25,6 +26,19 @@ export const useBrowserStorage = (): IBrowserStorageService => {
         BROWSER_STORAGE_KEYS.TIMER,
       );
       return timer;
+    },
+
+    setTimestamp: () => {
+      browser.storage.local.set({ timestamp: Date.now() });
+    },
+    clearTimestamp: () => {
+      browser.storage.local.set({ timestamp: null });
+    },
+    getTimestamp: async () => {
+      const { timestamp = null } = await browser.storage.local.get(
+        BROWSER_STORAGE_KEYS.TIMESTAMP,
+      );
+      return timestamp;
     },
   };
 };

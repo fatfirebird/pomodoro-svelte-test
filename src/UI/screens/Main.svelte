@@ -19,7 +19,7 @@
   class:chill={timerData.status === 'chill'}
   class:long-chill={timerData.status === 'long'}
 >
-  {#if timerData.timer === 0}
+  {#if timerData?.timer === 0}
     Start timer!
   {:else}
     {timerData.status}

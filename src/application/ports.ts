@@ -6,6 +6,10 @@ export interface IBrowserStorageService {
   setTimerData: (value: TTimerStoreValues) => void;
   getTimerData: () => Promise<TTimerStoreValues | null>;
   getSettingsData: () => Promise<TSettingsStoreValues | null>;
+
+  clearTimestamp: () => void;
+  setTimestamp: () => void;
+  getTimestamp: () => Promise<number | null>;
 }
 
 export interface IBrowserAlarmsService {

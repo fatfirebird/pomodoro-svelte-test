@@ -3,7 +3,8 @@ import { useBrowserAlarms } from '../service/browserAlarms';
 import { useBrowserStorage } from '../service/browserStorage';
 
 export const useTimerObserver = (cb: (v: TTimerStoreValues) => void) => {
-  const { setTimerData } = useBrowserStorage();
+  const { setTimerData, setTimestamp, clearTimestamp, getTimestamp } =
+    useBrowserStorage();
   const {
     createWorkTimer,
     createChillTimer,
@@ -14,6 +15,21 @@ export const useTimerObserver = (cb: (v: TTimerStoreValues) => void) => {
   let timerData: TTimerStoreValues;
   let timerInMs: number;
 
+  getTimestamp().then((timestamp) => {
+    if (timestamp && !timerData?.isPaused) {
+      const currentTime = Date.now();
+      const dif = Math.round((currentTime - timestamp) / 1000);
+      const newTimer = timerData.timer - dif;
+      setTimestamp();
+
+      if (newTimer > 0) {
+        timerStore.setTimer(newTimer);
+      } else {
+        timerStore.setTimer(0);
+      }
+    }
+  });
+
   const unsubscribeTimerStore = timerStore.subscribe((values) => {
     timerData = values;
     timerInMs = values.timer * 1000;
@@ -22,6 +38,7 @@ export const useTimerObserver = (cb: (v: TTimerStoreValues) => void) => {
   });
 
   const startTimer = () => {
+    setTimestamp();
     timerStore.startTimer();
 
     if (timerData.status === 'work') {
@@ -32,9 +49,10 @@ export const useTimerObserver = (cb: (v: TTimerStoreValues) => void) => {
   };
 
   const pauseTimer = () => {
-    timerStore.pauseTimer();
+    clearTimestamp();
     cancelChillTimer();
     cancelWorkTimer();
+    timerStore.pauseTimer();
   };
 
   const togglePause = () => {
@@ -50,14 +68,12 @@ export const useTimerObserver = (cb: (v: TTimerStoreValues) => void) => {
   };
 
   const timerInterval = setInterval(async () => {
-    if (timerData) {
-      if (timerData.timer <= 0) {
-        timerStore.pauseTimer();
-      }
+    if (timerData?.timer <= 0) {
+      timerStore.pauseTimer();
+    }
 
-      if (!timerData.isPaused) {
-        timerStore.set({ ...timerData, timer: timerData!.timer - 1 });
-      }
+    if (!timerData?.isPaused) {
+      timerStore.set({ ...timerData, timer: timerData!.timer - 1 });
     }
   }, 1000);
 
