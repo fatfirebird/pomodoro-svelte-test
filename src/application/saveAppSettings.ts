@@ -1,5 +1,5 @@
 import { timerStore } from '../domain/timer';
-import { TSettingsStoreValues } from '../domain/settings';
+import { settingsStore, TSettingsStoreValues } from '../domain/settings';
 import { get } from 'svelte/store';
 import { useBrowserStorage } from '../service/browserStorage';
 
@@ -12,6 +12,7 @@ export const saveAppSettings = (settingsData: TSettingsStoreValues) => {
     ...timerData,
     timer: settingsData.workTime * 60,
   });
+  settingsStore.set(settingsData);
   setSettingsData(settingsData);
   setTimerData({
     ...timerData,

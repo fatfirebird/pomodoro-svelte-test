@@ -34,6 +34,7 @@ function createSettingsStore() {
 
   return {
     subscribe,
+    update,
     set,
     setPomodoros,
     setDefaultSettings,
